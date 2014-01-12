@@ -1,0 +1,13 @@
+;; insert competitive programming code library
+;; put the Makefile and c++ template where you like
+(defun have-fun (filename)
+  "setup for a new competitive programming problem"
+  (interactive "F")
+  (unless (file-exists-p "./Makefile")
+    (copy-file "~/Makefile" "./Makefile") )
+  (unless (file-exists-p filename)
+    (copy-file "~/temp.cpp" filename))
+  (find-file filename))
+
+;; TODO: stronger compile commands
+;; TODO: key binding for GDB in emacs
