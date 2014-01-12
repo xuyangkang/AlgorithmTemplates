@@ -1,13 +1,38 @@
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(delete-selection-mode nil)
+ '(inhibit-startup-screen t)
+ '(mark-even-if-inactive t)
+ '(scroll-bar-mode (quote right))
+ '(transient-mark-mode 1))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; show line numbers
+(global-linum-mode 1)
+;; key binding for goto line
+(global-set-key (kbd "M-g") 'goto-line)
+
 ;; insert competitive programming code library
-;; put the Makefile and c++ template where you like
+;; you can change the folder to where you like
 (defun have-fun (filename)
   "setup for a new competitive programming problem"
   (interactive "F")
-  (unless (file-exists-p "./Makefile")
-    (copy-file "~/Makefile" "./Makefile") )
   (unless (file-exists-p filename)
-    (copy-file "~/temp.cpp" filename))
+    (copy-file "~/AlgoTemplates/temp.cpp" filename))
+  (unless (file-exists-p "./Makefile")
+    (copy-file "~/AlgoTemplates/Makefile" "./Makefile") )
   (find-file filename))
 
-;; TODO: stronger compile commands
-;; TODO: key binding for GDB in emacs
+;; key binding for compile
+(global-set-key [f6] 'compile)
+
+;; TODO: GDB in emacs key bindings
