@@ -1,9 +1,7 @@
-CC = g++
-CFLAGS = -g -std=c++11 -Wall
+install:
+	mv ~/.emacs ~/.emacs_bak
+	cp ./emacs_config.txt ~/.emacs
+	cp ./ ~/ -rf
 
-all: $(patsubst %.cpp, %.out, $(wildcard *.cpp))
-
-%.out: %.cpp Makefile
-	$(CC) $(CFLAGS) $< -o $@
-clean:
-	rm *.out
+uninstall:
+	mv ~/.emacs_bak ~/.emacs
