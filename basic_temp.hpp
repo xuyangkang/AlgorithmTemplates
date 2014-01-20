@@ -1,6 +1,7 @@
 #ifndef __ALGO_BASIC_TEMP__
 #define __ALGO_BASIC_TEMP__
 
+#include <cassert>
 #include <cctype>
 #include <cstdio>
 #include <cstdlib>

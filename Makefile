@@ -1,7 +1,7 @@
 install:
 	mv ~/.emacs ~/.emacs_bak
 	cp ./emacs_config.txt ~/.emacs
-	cp ./ ~/ -rf
+	cp ../AlgoTemplates/ ~/ -rf
 
 uninstall:
 	mv ~/.emacs_bak ~/.emacs
@@ -11,4 +11,4 @@ test:
 
 clean:
 	rm -rf *~
-	rm test
+	rm -rf test

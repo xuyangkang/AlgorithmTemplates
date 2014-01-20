@@ -27,12 +27,14 @@
   "setup for a new competitive programming problem"
   (interactive "F")
   (unless (file-exists-p filename)
-    (copy-file "~/AlgoTemplates/basic_temp.h" filename))
+    (copy-file "~/AlgoTemplates/basic_temp.hpp" filename))
   (unless (file-exists-p "./Makefile")
     (copy-file "~/AlgoTemplates/Makefile.temp" "./Makefile") )
   (find-file filename))
 
 ;; key binding for compile
-(global-set-key [f6] 'compile)
-
-;; TODO: GDB in emacs key bindings
+(defun my-hook ()
+  (define-key c++-mode-map [f5] 'compile)  
+  (define-key c++-mode-map [f6] 'gud-gdb)
+  (no-case-fold-search))
+(add-hook 'c++-mode-hook 'my-hook)
