@@ -27,9 +27,9 @@
   "setup for a new competitive programming problem"
   (interactive "F")
   (unless (file-exists-p filename)
-    (copy-file "~/AlgoTemplates/temp.cpp" filename))
+    (copy-file "~/AlgoTemplates/basic_temp.h" filename))
   (unless (file-exists-p "./Makefile")
-    (copy-file "~/AlgoTemplates/Makefile" "./Makefile") )
+    (copy-file "~/AlgoTemplates/Makefile.temp" "./Makefile") )
   (find-file filename))
 
 ;; key binding for compile

@@ -1,3 +1,6 @@
+#ifndef __ALGO_BASIC_TEMP__
+#define __ALGO_BASIC_TEMP__
+
 #include <cctype>
 #include <cstdio>
 #include <cstdlib>
@@ -32,18 +35,4 @@ inline bool gr(double a, double b) { return b + EPS < a; }
 inline bool le(double a, double b) { return a - EPS < b; }
 inline bool ge(double a, double b) { return b - EPS < a; }
 
-void float_utilities_test() {
-  for (int i = -1; i <= 1; i++) {
-    cerr << eq(i, 0) << endl;
-    cerr << ne(i, 0) << endl;
-    cerr << ls(i, 0) << endl;
-    cerr << gr(i, 0) << endl;
-    cerr << le(i, 0) << endl;
-    cerr << ge(i, 0) << endl;
-  }
-}
-
-int main(int argc, char **argv) {
-  float_utilities_test();
-  return 0;
-}
+#endif
