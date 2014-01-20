@@ -1,8 +1,10 @@
 #ifndef __ALGO_BASIC_TEMP__
 #define __ALGO_BASIC_TEMP__
 
+#include <algorithm>
 #include <cassert>
 #include <cctype>
+#include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
