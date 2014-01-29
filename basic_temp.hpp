@@ -19,6 +19,9 @@
 
 using namespace std;
 
+// a handy macro
+#define debug(x) std::cerr << #x << " = " << x << endl;
+
 // type define
 typedef char int8;
 typedef unsigned char uint8;

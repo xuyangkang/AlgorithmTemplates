@@ -16,12 +16,25 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; highlight selection area
+(transient-mark-mode t)
+
+;; highlight current line
+(global-hl-line-mode 1)
+
+;; use space instead of tab
+(setq-default indent-tabs-mode nil) 
+
+;; do not create backup files
+(setq make-backup-files nil) 
+
 ;; show line numbers
 (global-linum-mode 1)
+
 ;; key binding for goto line
 (global-set-key (kbd "M-g") 'goto-line)
 
-;; insert competitive programming code library
+;; create a new problem solver from the basic template
 ;; you can change the folder to where you like
 (defun have-fun (filename)
   "setup for a new competitive programming problem"
@@ -37,4 +50,5 @@
   (define-key c++-mode-map [f5] 'compile)  
   (define-key c++-mode-map [f6] 'gud-gdb)
   (no-case-fold-search))
+
 (add-hook 'c++-mode-hook 'my-hook)
