@@ -10,11 +10,9 @@ Design
 
 I use Emacs and C++ (Maybe C with STL? LOL )
 
-- Java is sometimes slow and tricky. Java has some useful features like BigInteger, isProbablePrime() and regex, but it's not used very often in programming contests. I think it's OK to use C++.
-
-- I often work on CodeForces, TopCoder and Russian OJs. They have good c++11 support. So I use C++11 here.
-
-- Emacs works well with GNU toolkits and can be "deep" configured by emacs lisp.
+- Java is fat, slow and sometimes tricky.
+- CodeForces, TopCoder and Russian OJs support c++11 well. So I use C++11
+- Emacs works well with GNU toolkits and can be "deep" configured by emacs lisp
 
 Usage
 ===
