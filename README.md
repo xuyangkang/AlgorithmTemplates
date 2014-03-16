@@ -8,21 +8,19 @@ A guy forked my old template before I pruged them. See: [here] (https://github.c
 Design
 ===
 
-I use Emacs and C++.
+I use Emacs and C++ (Maybe C with STL? LOL )
 
-+ Why C++? Because Java is very tricky. Everything is reference except the basic types(int, char...). Sometimes it causes problems which is very hard to find. I know Java has rich resources like BigInteger class, isProbablePrime(), regex... But it's not used very often in programming contests. So it's OK to use C++.
+- Java is sometimes slow and tricky. Java has some useful features like BigInteger, isProbablePrime() and regex, but it's not used very often in programming contests. I think it's OK to use C++.
 
-+ Why Emacs? It works very well with GNU toolkits like Make, GDB. You can "deep" configure it with Emacs lisp. 
+- I often work on CodeForces, TopCoder and Russian OJs. They have good c++11 support. So I use C++11 here.
 
-+ The most important thing: I love Emacs! // VIM MUST DIE!!
+- Emacs works well with GNU toolkits and can be "deep" configured by emacs lisp.
 
-Program is consists of algorithm and data structure. So the design will look like that:
+Usage
+===
 
-    class DataStructure {
-    };
-    
-    class ProbSolver {
-      DataStructure ds;
-      ProbSolver(DataStructure);
-      void solve();
-    };
+- 'make install' to copy this template to your ~/
+- Patch emacs_config.txt to your ~/.emacs
+- M-x havefun to create a new problem solver from basic_temp.cpp
+- <F5> for compile
+- <F6> for debug
