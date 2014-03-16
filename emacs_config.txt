@@ -46,9 +46,33 @@
   (find-file filename))
 
 ;; key binding for compile
+(setq gdb-use-separate-io-buffer 1)
+
 (defun my-hook ()
   (define-key c++-mode-map [f5] 'compile)  
   (define-key c++-mode-map [f6] 'gud-gdb)
   (no-case-fold-search))
 
 (add-hook 'c++-mode-hook 'my-hook)
+
+;; F5 for reload file
+(defun revert-buffer-no-confirm ()
+  "Revert buffer without confirmation."
+  (interactive) (revert-buffer t t))
+(global-set-key [f5] 'revert-buffer-no-confirm)
+
+;; multi-term
+(add-to-list 'load-path "~/.emacs.d/")
+(require 'multi-term)
+(setq multi-term-program "/bin/bash")
+(global-set-key (kbd "C-x t") 'multi-term)
+
+;; faster window switch
+(defun back-window ()
+  (interactive)
+  (other-window -1))
+(global-set-key [M-left] 'previous-multiframe-window)
+(global-set-key [M-right] 'next-multiframe-window)
+(defadvice split-window (after move-point-to-new-window activate)
+  "Moves the point to the newly created window after splitting."
+  (other-window 1))
