@@ -19,26 +19,19 @@
 
 using namespace std;
 
-// a handy macro
+// a handy macro for debugging
+#ifdef LOCAL_DEBUG
 #define debug(x) std::cerr << #x << " = " << x << endl;
+#else
+#define debug(x) ;
+#endif 
 
 // type define
 typedef char int8;
 typedef unsigned char uint8;
 typedef short int16;
 typedef unsigned short uint16;
-typedef int int32;
-typedef unsigned int uint32;
 typedef long long int64;
 typedef unsigned long long uint64;
-
-// float utilities
-const double EPS = 1E-8;
-inline bool eq(double a, double b) { return a - b < EPS && b - a < EPS; }
-inline bool ne(double a, double b) { return a + EPS < b || b + EPS < a; }
-inline bool ls(double a, double b) { return a + EPS < b; }
-inline bool gr(double a, double b) { return b + EPS < a; }
-inline bool le(double a, double b) { return a - EPS < b; }
-inline bool ge(double a, double b) { return b - EPS < a; }
 
 #endif
