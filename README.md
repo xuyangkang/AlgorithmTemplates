@@ -20,5 +20,5 @@ Usage
 - 'make install' to copy this template to your ~/
 - Patch emacs_config.txt to your ~/.emacs (Or simply replace)
 - M-x havefun to create a new problem solver from basic_temp.cpp
-- <F5> for compile
-- <F6> for debug
+- F5 for compile
+- F6 for debug
