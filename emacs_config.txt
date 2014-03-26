@@ -28,9 +28,6 @@
 ;; do not create backup files
 (setq make-backup-files nil) 
 
-;; show line numbers
-(global-linum-mode 1)
-
 ;; key binding for goto line
 (global-set-key (kbd "M-g") 'goto-line)
 
@@ -54,12 +51,6 @@
   (no-case-fold-search))
 
 (add-hook 'c++-mode-hook 'my-hook)
-
-;; F5 for reload file
-(defun revert-buffer-no-confirm ()
-  "Revert buffer without confirmation."
-  (interactive) (revert-buffer t t))
-(global-set-key [f5] 'revert-buffer-no-confirm)
 
 ;; multi-term
 (add-to-list 'load-path "~/.emacs.d/")
