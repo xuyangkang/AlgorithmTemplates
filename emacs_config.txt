@@ -32,7 +32,6 @@
 (global-set-key (kbd "M-g") 'goto-line)
 
 ;; create a new problem solver from the basic template
-;; you can change the folder to where you like
 (defun have-fun (filename)
   "setup for a new competitive programming problem"
   (interactive "F")
@@ -42,26 +41,23 @@
     (copy-file "~/AlgoTemplates/Makefile.temp" "./Makefile") )
   (find-file filename))
 
+;; insert your templates
+(defun require-float-utility ()
+  "require float utility"
+  (interactive nil)
+  (insert-file-contents "~/AlgoTemplates/float_utility.hpp"))
+
 ;; key binding for compile
-(setq gdb-use-separate-io-buffer 1)
-
-(defun my-hook ()
-  (define-key c++-mode-map [f5] 'compile)  
-  (define-key c++-mode-map [f6] 'gud-gdb)
-  (no-case-fold-search))
-
-(add-hook 'c++-mode-hook 'my-hook)
+(global-set-key [f5] 'compile)  
+(global-set-key [f6] 'gud-gdb)
 
 ;; multi-term
-(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/AlgoTemplates/")
 (require 'multi-term)
 (setq multi-term-program "/bin/bash")
 (global-set-key (kbd "C-x t") 'multi-term)
 
 ;; faster window switch
-(defun back-window ()
-  (interactive)
-  (other-window -1))
 (global-set-key [M-left] 'previous-multiframe-window)
 (global-set-key [M-right] 'next-multiframe-window)
 (defadvice split-window (after move-point-to-new-window activate)
