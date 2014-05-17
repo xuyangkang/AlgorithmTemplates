@@ -1,6 +1,13 @@
 #ifndef __ALGO_BASIC_TEMP__
 #define __ALGO_BASIC_TEMP__
 
+/*
+我是一个mc男孩站在DJ台
+手里拿着麦克风我感觉很气派
+现在我要你跟我一起来摇摆
+这里是来自情债的新一代
+*/
+
 #include <algorithm>
 #include <cassert>
 #include <cctype>
