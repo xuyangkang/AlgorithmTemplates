@@ -18,6 +18,8 @@
 #include <iostream>
 #include <map>
 #include <set>
+#include <stack>
+#include <queue>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -38,6 +40,7 @@ typedef char int8;
 typedef unsigned char uint8;
 typedef short int16;
 typedef unsigned short uint16;
+typedef unsigned int uint;
 typedef long long int64;
 typedef unsigned long long uint64;
 
