@@ -6,4 +6,4 @@ all: $(patsubst %.cpp, %.o, $(wildcard *.cpp))
 %.o: %.cpp Makefile
 	$(CC) $(CFLAGS) $< -o $@
 clean:
-	rm *.out
+	rm *.o
