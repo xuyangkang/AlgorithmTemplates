@@ -1,10 +1,6 @@
----
-title: "Sport Programming Template Design"
-author: "Xuyang Kang"
-date: "2014-11-26"
-output: html_document
----
+README
+===
 
-Template for ACM/ICPC, TC, CF, etc.
+This is xuyang's template for ACM/ICPC, TC, CF and other algorithm games.
 
 This template is written in Java 7. Eclipse 4.3 and Google style guide is strongly recommended.
