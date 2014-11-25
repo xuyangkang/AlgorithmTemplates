@@ -1,9 +1,0 @@
-CC = g++
-CFLAGS = -g -std=c++11 -Wall -DLOCAL_DEBUG
-
-all: $(patsubst %.cpp, %.o, $(wildcard *.cpp))
-
-%.o: %.cpp Makefile
-	$(CC) $(CFLAGS) $< -o $@
-clean:
-	rm *.o
