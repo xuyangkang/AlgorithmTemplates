@@ -9,34 +9,31 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class TinyMain implements Runnable {
+
+public class Main implements Runnable {
 
   private static final String inputFilePath = "";
 
   private void solve(QuickScanner in, PrintWriter out) {
-    // TODO(xuyang): Write code here.
     out.println("Hello World!");
   }
 
-  @SuppressWarnings("unused")
   private static void debug(Object... objects) {
     System.err.println(Arrays.deepToString(objects));
   }
 
-  @SuppressWarnings("unused")
-  private static void assertTrue(boolean cond) {
+  private static void checkCondition(boolean cond) {
     if (!cond) {
       throw new AssertionError();
     }
   }
 
   /**
-   * A util function to get current time. This is often used in some search or random algorithm for
+   * A util function to get current time. This is often used in some search or random algorithm to
    * limit program run time.
    * 
    * @return currentTime in MS.
    */
-  @SuppressWarnings("unused")
   private static long currentTime() {
     return System.currentTimeMillis();
   }
@@ -104,7 +101,7 @@ public class TinyMain implements Runnable {
   }
 
   // Tedious code.
-  public TinyMain() {}
+  public Main() {}
 
   @Override
   public void run() {
@@ -128,6 +125,6 @@ public class TinyMain implements Runnable {
   }
 
   public static void main(String[] args) {
-    new TinyMain().run();
+    new Main().run();
   }
 }
