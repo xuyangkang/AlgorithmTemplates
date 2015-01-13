@@ -23,14 +23,19 @@ public class Main implements Runnable {
     out.println("Hello World!");
   }
 
-  @SuppressWarnings("unused")
   private static void debug(Object... objects) {
     System.err.println(Arrays.deepToString(objects));
   }
 
-  private static void assertTrue(boolean cond) {
+  private static void checkCondition(boolean cond) {
     if (!cond) {
       throw new AssertionError();
+    }
+  }
+  
+  private static void checkCondition(boolean cond, String errorMessage) {
+    if (!cond) {
+      throw new AssertionError(errorMessage);
     }
   }
 
@@ -194,7 +199,6 @@ public class Main implements Runnable {
    * 
    * @return currentTime in MS.
    */
-  @SuppressWarnings("unused")
   private static long currentTime() {
     return System.currentTimeMillis();
   }
@@ -320,14 +324,14 @@ public class Main implements Runnable {
   }
 
 
-  class LessComparator<T extends Comparable<T>> implements Comparator<T> {
+  private class LessComparator<T extends Comparable<T>> implements Comparator<T> {
     @Override
     public int compare(T a, T b) {
       return a.compareTo(b);
     }
   }
 
-  class GreaterComparator<T extends Comparable<T>> implements Comparator<T> {
+  private class GreaterComparator<T extends Comparable<T>> implements Comparator<T> {
     @Override
     public int compare(T a, T b) {
       return b.compareTo(a);
