@@ -32,7 +32,7 @@ public class Main implements Runnable {
       throw new AssertionError();
     }
   }
-  
+
   private static void checkCondition(boolean cond, String errorMessage) {
     if (!cond) {
       throw new AssertionError(errorMessage);
@@ -44,8 +44,10 @@ public class Main implements Runnable {
       final int l, r;
       Segment lc, rc;
 
-      // Add data field below.
+      // Add data field and accesser below.
 
+      // Add data field and accesser above.
+      
       // Implement these according to problems. May add args.
       Segment pushUp() {
         throw new AssertionError("Not implemented");
@@ -287,7 +289,6 @@ public class Main implements Runnable {
       BigInteger x = new BigInteger(N.bitLength(), RANDOM);
       BigInteger xx = x;
 
-      // check divisibility by 2
       if (N.mod(BIG_TWO).compareTo(BIG_ZERO) == 0) {
         return BIG_TWO;
       }
@@ -322,7 +323,6 @@ public class Main implements Runnable {
       return result;
     }
   }
-
 
   private class LessComparator<T extends Comparable<T>> implements Comparator<T> {
     @Override
