@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 
 public class Main implements Runnable {
 
-  private static final String inputFilePath = "";
+  private static final String INPUT_FILE = "";
 
   private void solve(QuickScanner in, PrintWriter out) {
     out.println("Hello World!");
@@ -416,10 +416,10 @@ public class Main implements Runnable {
     PrintWriter out = new PrintWriter(System.out);
     try {
       Reader reader = null;
-      if (inputFilePath.isEmpty()) {
+      if (INPUT_FILE.isEmpty()) {
         reader = new InputStreamReader(System.in);
       } else {
-        reader = new FileReader(inputFilePath);
+        reader = new FileReader(INPUT_FILE);
       }
       QuickScanner in = new QuickScanner(reader);
       solve(in, out);
