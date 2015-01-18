@@ -23,65 +23,44 @@ public class Main implements Runnable {
     out.println("Hello World!");
   }
 
-  private static void debug(Object... objects) {
-    System.err.println(Arrays.deepToString(objects));
-  }
-
-  private static void checkCondition(boolean cond) {
-    if (!cond) {
-      throw new AssertionError();
-    }
-  }
-
-  private static void checkCondition(boolean cond, String errorMessage) {
-    if (!cond) {
-      throw new AssertionError(errorMessage);
-    }
-  }
-
   private class SegmentTree {
-    class Segment {
-      final int l, r;
-      Segment lc, rc;
+    class TreeNode {
+      int l;
+      int r;
+      TreeNode lc;
+      TreeNode rc;
 
-      // Add data field and accesser below.
+      // Add data field below.
 
-      // Add data field and accesser above.
-      
       // Implement these according to problems. May add args.
-      Segment pushUp() {
-        throw new AssertionError("Not implemented");
+      TreeNode pushUp() {
+        throw new AssertionError("Push up is not implemented.");
       }
 
-      Segment pushDown() {
-        throw new AssertionError("Not implemented");
+      TreeNode pushDown() {
+        if (lc == null) {
+          this.split();
+        }
+        throw new AssertionError("Push down is not implemented.");
       }
 
-      Segment update() {
-        throw new AssertionError("Not implemented");
+      TreeNode update() {
+        throw new AssertionError("Update is not implemented.");
       }
 
-      Segment() {
+      TreeNode() {
         this(0, 0, null, null);
       }
 
-      Segment(int l, int r) {
+      TreeNode(int l, int r) {
         this(l, r, null, null);
       }
 
-      Segment(int l, int r, Segment lc, Segment rc) {
+      TreeNode(int l, int r, TreeNode lc, TreeNode rc) {
         this.l = l;
         this.r = r;
         this.lc = lc;
         this.rc = rc;
-      }
-
-      int getL() {
-        return l;
-      }
-
-      int getR() {
-        return r;
       }
 
       int getMid() {
@@ -89,19 +68,19 @@ public class Main implements Runnable {
       }
 
       boolean isLeaf() {
-        return lc == null;
+        return l == r;
       }
 
-      Segment split() {
+      TreeNode split() {
         if (l != r) {
           int mid = getMid();
-          lc = new Segment(l, mid);
-          rc = new Segment(mid + 1, r);
+          lc = new TreeNode(l, mid);
+          rc = new TreeNode(mid + 1, r);
         }
         return this;
       }
 
-      Segment expand() {
+      TreeNode expand() {
         split();
         if (!isLeaf()) {
           lc.expand();
@@ -109,36 +88,35 @@ public class Main implements Runnable {
         }
         return this;
       }
-
-      Segment getLc() {
-        return lc;
-      }
-
-      Segment getRc() {
-        return rc;
-      }
     }
 
-    Segment root;
+    TreeNode root;
 
     SegmentTree(int l, int r) {
-      root = new Segment(l, r).expand();
+      this(l, r, false);
+    }
+
+    SegmentTree(int l, int r, boolean dynamicExpand) {
+      root = new TreeNode(l, r);
+      if (!dynamicExpand) {
+        root.expand();
+      }
     }
 
     void updateKey(int key) {
       updateKeyWorker(root, key);
     }
 
-    private void updateKeyWorker(Segment now, int key) {
-      now.update();
-      now.pushDown();
+    private void updateKeyWorker(TreeNode now, int key) {
+      // now.update();
+      // now.pushDown();
       if (!now.isLeaf()) {
         if (key <= now.getMid()) {
-          updateKeyWorker(now.getLc(), key);
+          updateKeyWorker(now.lc, key);
         } else {
-          updateKeyWorker(now.getRc(), key);
+          updateKeyWorker(now.rc, key);
         }
-        now.pushUp();
+        // now.pushUp();
       }
     }
 
@@ -146,17 +124,17 @@ public class Main implements Runnable {
       updateRangeWorker(root, l, r);
     }
 
-    private void updateRangeWorker(Segment now, int l, int r) {
-      if (r < now.getL() || l > now.getR()) {
+    private void updateRangeWorker(TreeNode now, int l, int r) {
+      if (r < now.l || l > now.r) {
         return;
       }
-      if (l <= now.getL() && now.getR() <= r) {
-        now.update();
+      if (l <= now.l && now.r <= r) {
+        // now.update();
       } else {
-        now.pushDown();
+        // now.pushDown();
         updateRangeWorker(now.lc, l, r);
         updateRangeWorker(now.rc, l, r);
-        now.pushUp();
+        // now.pushUp();
       }
     }
 
@@ -164,15 +142,15 @@ public class Main implements Runnable {
       queryKeyWorker(root, key);
     }
 
-    private void queryKeyWorker(Segment now, int key) {
+    private void queryKeyWorker(TreeNode now, int key) {
       if (!now.isLeaf()) {
-        now.pushDown();
+        // now.pushDown();
         if (key <= now.getMid()) {
-          queryKeyWorker(now.getLc(), key);
+          queryKeyWorker(now.lc, key);
         } else {
-          queryKeyWorker(now.getRc(), key);
+          queryKeyWorker(now.lc, key);
         }
-        now.pushUp();
+        // now.pushUp();
       }
     }
 
@@ -180,90 +158,18 @@ public class Main implements Runnable {
       queryRangeWorker(root, l, r);
     }
 
-    private void queryRangeWorker(Segment now, int l, int r) {
-      if (r < now.getL() || l > now.getR()) {
+    private void queryRangeWorker(TreeNode now, int l, int r) {
+      if (r < now.l || l > now.r) {
         return;
       }
-      if (l <= now.getL() && now.getR() <= r) {
+      if (l <= now.r && now.r <= r) {
         return;
       } else {
-        now.pushDown();
+        // now.pushDown();
         queryRangeWorker(now.lc, l, r);
         queryRangeWorker(now.rc, l, r);
-        now.pushUp();
+        // now.pushUp();
       }
-    }
-  }
-
-  /**
-   * A util function to get current time. This is often used in some search or random algorithm for
-   * limit program run time.
-   * 
-   * @return currentTime in MS.
-   */
-  private static long currentTime() {
-    return System.currentTimeMillis();
-  }
-
-  private class QuickScanner {
-    private BufferedReader bufferedReader = null;
-    private StringTokenizer stringTokenizer = null;
-    private String nextHolder = null;
-
-    QuickScanner(Reader reader) {
-      bufferedReader = new BufferedReader(reader);
-    }
-
-    boolean hasNext() {
-      // Try to get next and put it into nextHolder.
-      if (nextHolder == null) {
-        nextHolder = next();
-      }
-      return nextHolder != null;
-    }
-
-    String next() {
-      // If called hasNext before, should return string in nextHolder.
-      if (nextHolder != null) {
-        String next = nextHolder;
-        nextHolder = null;
-        return next;
-      }
-
-      try {
-        while (stringTokenizer == null || !stringTokenizer.hasMoreTokens()) {
-          String newLine = bufferedReader.readLine();
-          if (newLine != null) {
-            stringTokenizer = new StringTokenizer(newLine);
-          } else {
-            return null;
-          }
-        }
-        return stringTokenizer.nextToken();
-      } catch (IOException e) {
-        e.printStackTrace();
-        return null;
-      }
-    }
-
-    int nextInt() {
-      return Integer.parseInt(next());
-    }
-
-    long nextLong() {
-      return Long.parseLong(next());
-    }
-
-    double nextDouble() {
-      return Double.parseDouble(next());
-    }
-
-    BigInteger nextBigInteger() {
-      return new BigInteger(next());
-    }
-
-    BigDecimal nextBigDecimal() {
-      return new BigDecimal(next());
     }
   }
 
@@ -410,6 +316,100 @@ public class Main implements Runnable {
 
   // Tedious code.
   public Main() {}
+
+  private class QuickScanner {
+    private BufferedReader bufferedReader = null;
+    private StringTokenizer stringTokenizer = null;
+    private String nextHolder = null;
+
+    QuickScanner(Reader reader) {
+      bufferedReader = new BufferedReader(reader);
+    }
+
+    boolean hasNext() {
+      // Try to get next and put it into nextHolder.
+      if (nextHolder == null) {
+        nextHolder = next();
+      }
+      return nextHolder != null;
+    }
+
+    String next() {
+      // If called hasNext before, should return string in nextHolder.
+      if (nextHolder != null) {
+        String next = nextHolder;
+        nextHolder = null;
+        return next;
+      }
+
+      try {
+        while (stringTokenizer == null || !stringTokenizer.hasMoreTokens()) {
+          String newLine = bufferedReader.readLine();
+          if (newLine != null) {
+            stringTokenizer = new StringTokenizer(newLine);
+          } else {
+            return null;
+          }
+        }
+        return stringTokenizer.nextToken();
+      } catch (IOException e) {
+        e.printStackTrace();
+        return null;
+      }
+    }
+
+    int nextInt() {
+      return Integer.parseInt(next());
+    }
+
+    int nextInt(int radix) {
+      return Integer.parseInt(next(), radix);
+    }
+
+    long nextLong() {
+      return Long.parseLong(next());
+    }
+
+    long nextLong(int radix) {
+      return Long.parseLong(next(), radix);
+    }
+
+    double nextDouble() {
+      return Double.parseDouble(next());
+    }
+
+    BigInteger nextBigInteger() {
+      return new BigInteger(next());
+    }
+
+    BigInteger nextBigInteger(int radix) {
+      return new BigInteger(next(), radix);
+    }
+
+    BigDecimal nextBigDecimal() {
+      return new BigDecimal(next());
+    }
+  }
+
+  private static long currentTimeInMiiliSeconds() {
+    return System.currentTimeMillis();
+  }
+
+  private static void debug(Object... objects) {
+    System.err.println(Arrays.deepToString(objects));
+  }
+
+  private static void checkCondition(boolean cond) {
+    if (!cond) {
+      throw new AssertionError();
+    }
+  }
+
+  private static void checkCondition(boolean cond, String errorMessage) {
+    if (!cond) {
+      throw new AssertionError(errorMessage);
+    }
+  }
 
   @Override
   public void run() {
