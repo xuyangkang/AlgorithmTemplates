@@ -11,13 +11,13 @@ var scanner *bufio.Scanner = bufio.NewScanner(os.Stdin)
 var writer *bufio.Writer = bufio.NewWriter(os.Stdout)
 
 func ReadString() string {
-	scanner.Scan()
-	return scanner.Text()
+    scanner.Scan()
+    return scanner.Text()
 }
 
 func ReadFloat64() float64 {
-	f64, _ := strconv.ParseFloat(ReadString(), 64)
-	return f64
+    f64, _ := strconv.ParseFloat(ReadString(), 64)
+    return f64
 }
 
 func ReadInt64() int64 {
@@ -26,7 +26,7 @@ func ReadInt64() int64 {
 }
 
 func ReadInt() int {
-	return int(ReadInt64())
+    return int(ReadInt64())
 }
 
 func main() {
