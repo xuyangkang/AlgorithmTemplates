@@ -21,7 +21,7 @@ func ReadFloat64() float64 {
 }
 
 func ReadInt64() int64 {
-	i64, _ := strconv.ParseInt(ReadString(), 10, 0)
+	i64, _ := strconv.ParseInt(ReadString(), 10, 64)
 	return i64
 }
 
