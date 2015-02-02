@@ -68,12 +68,12 @@ public class Main implements Runnable {
 
     int select(int k) {
       int ans = 0;
-      for (int i = logLength; i >= 0; i--) {
-        ans += (1 << i);
+      for (int i = 1 << logLength; i > 0; i >>= 1) {
+        ans ^= i;
         if (ans <= length && c[ans] < k) {
           k -= c[ans];
         } else {
-          ans -= (1 << i);
+          ans ^= i;
         }
       }
       return ans + 1;
@@ -146,8 +146,8 @@ public class Main implements Runnable {
     }
 
     private void buildTree() {
-      length = Integer.highestOneBit(data.size()) * 2;
-      tree = new int[length * 2];
+      length = Integer.highestOneBit(data.size()) << 1;
+      tree = new int[length << 1];
       Arrays.fill(tree, -1);
       for (int i = 0; i < data.size(); i++) {
         tree[length + i] = i;
@@ -166,13 +166,12 @@ public class Main implements Runnable {
     }
 
     private void updateWorker(int i) {
-      T tmp2 = data.get(i);
-      for (int j = length + i; j > 0; j /= 2) {
+      T tmp = data.get(i);
+      for (int j = length + i; j > 0; j >>= 1) {
         if (tree[j] == -1) {
           tree[j] = i;
         } else {
-          T tmp1 = data.get(tree[j]);
-          int cmp = compareWorker(tmp2, tmp1);
+          int cmp = compareWorker(tmp, data.get(tree[j]));
           if (cmp < 0 || (cmp == 0 && i < tree[j])) {
             tree[j] = i;
           }
