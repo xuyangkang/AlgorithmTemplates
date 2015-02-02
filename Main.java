@@ -19,7 +19,7 @@ public class Main implements Runnable {
   private static final String INPUT_FILE = "";
 
   private void solve(QuickScanner in, PrintWriter out) {
-    out.print("Done");
+    out.print("Hello, World!");
   }
 
   private class BinaryIndexedTree {
