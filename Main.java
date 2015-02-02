@@ -10,6 +10,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -19,7 +20,7 @@ public class Main implements Runnable {
   private static final String INPUT_FILE = "";
 
   private void solve(QuickScanner in, PrintWriter out) {
-    out.print("Hello, World!");
+    out.println("Hello world!");
   }
 
   private class BinaryIndexedTree {
@@ -47,6 +48,7 @@ public class Main implements Runnable {
       add(x, -1);
     }
 
+    // [1, x]
     int sum(int x) {
       int sum = 0;
       for (; x > 0; x -= Integer.lowestOneBit(x)) {
@@ -55,6 +57,7 @@ public class Main implements Runnable {
       return sum;
     }
 
+    // [l, r]
     int sum(int l, int r) {
       return sum(r) - sum(l - 1);
     }
@@ -76,7 +79,108 @@ public class Main implements Runnable {
       return ans + 1;
     }
   }
-  
+
+  private class Rmq<T extends Comparable<T>> {
+    List<T> data;
+    int[] tree;
+    int length;
+    Comparator<T> comparator;
+
+    Rmq(T[] data, Comparator<T> comparator) {
+      this.data = new ArrayList<T>();
+      for (T e : data) {
+        this.data.add(e);
+      }
+      this.comparator = comparator;
+      buildTree();
+    }
+
+    Rmq(T[] data) {
+      this(data, null);
+    }
+
+    Rmq(Iterable<T> data, Comparator<T> comparator) {
+      this.data = new ArrayList<T>();
+      for (T e : data) {
+        this.data.add(e);
+      }
+      this.comparator = comparator;
+      buildTree();
+    }
+
+    Rmq(Iterable<T> data) {
+      this(data, null);
+    }
+
+    void set(int i, T value) {
+      data.set(i, value);
+      updateWorker(i);
+    }
+
+    T get(int i) {
+      return data.get(i);
+    }
+
+    // [s, t)
+    int query(int s, int t) {
+      int ret = -1;
+      T val = null;
+      while (0 < s && s + Integer.lowestOneBit(s) <= t) {
+        int i = (length + s) / Integer.lowestOneBit(s);
+        if (ret == -1 || compareWorker(data.get(tree[i]), val) < 0) {
+          ret = tree[i];
+          val = data.get(ret);
+        }
+        s += Integer.lowestOneBit(s);
+      }
+
+      while (s < t) {
+        int i = (length + t) / Integer.lowestOneBit(t) - 1;
+        if (ret == -1 || compareWorker(data.get(tree[i]), val) < 0) {
+          ret = tree[i];
+          val = data.get(ret);
+        }
+        t -= Integer.lowestOneBit(t);
+      }
+      return ret;
+    }
+
+    private void buildTree() {
+      length = Integer.highestOneBit(data.size()) * 2;
+      tree = new int[length * 2];
+      Arrays.fill(tree, -1);
+      for (int i = 0; i < data.size(); i++) {
+        tree[length + i] = i;
+      }
+      for (int i = 0; i < data.size(); i++) {
+        updateWorker(i);
+      }
+    }
+
+    private int compareWorker(T o1, T o2) {
+      if (comparator != null) {
+        return comparator.compare(o1, o2);
+      } else {
+        return o1.compareTo(o2);
+      }
+    }
+
+    private void updateWorker(int i) {
+      T tmp2 = data.get(i);
+      for (int j = length + i; j > 0; j /= 2) {
+        if (tree[j] == -1) {
+          tree[j] = i;
+        } else {
+          T tmp1 = data.get(tree[j]);
+          int cmp = compareWorker(tmp2, tmp1);
+          if (cmp < 0 || (cmp == 0 && i < tree[j])) {
+            tree[j] = i;
+          }
+        }
+      }
+    }
+  }
+
   private static class MathUtils {
 
     private MathUtils() {
@@ -135,6 +239,20 @@ public class Main implements Runnable {
   }
 
   public Main() {}
+
+  private class LessComparator<T extends Comparable<T>> implements Comparator<T> {
+    @Override
+    public int compare(T a, T b) {
+      return a.compareTo(b);
+    }
+  }
+
+  private class GreaterComparator<T extends Comparable<T>> implements Comparator<T> {
+    @Override
+    public int compare(T a, T b) {
+      return b.compareTo(a);
+    }
+  }
 
   private class QuickScanner {
     private BufferedReader bufferedReader = null;
