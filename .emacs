@@ -30,23 +30,3 @@
 
 ;; key binding for goto line
 (global-set-key (kbd "M-g") 'goto-line)
-
-;; create a new problem solver from the basic template
-(defun have-fun (filename)
-  "setup for a new competitive programming problem"
-  (interactive "F")
-  (unless (file-exists-p filename)
-    (copy-file "~/AlgoTemplates/basic_temp.hpp" filename))
-  (unless (file-exists-p "./Makefile")
-    (copy-file "~/AlgoTemplates/Makefile.temp" "./Makefile") )
-  (find-file filename))
-
-;; insert your templates
-(defun require-float-utility ()
-  "require float utility"
-  (interactive nil)
-  (insert-file-contents "~/AlgoTemplates/float_utility.hpp"))
-
-;; key binding for compile
-(global-set-key [f5] 'compile)  
-(global-set-key [f6] 'gud-gdb)
