@@ -18,6 +18,7 @@ import java.util.StringTokenizer;
 public class Main implements Runnable {
 
   private static final String INPUT_FILE = "";
+  private static final int STACK_SIZE = 16 << 20;
 
   private void solve(QuickScanner in, PrintWriter out) {
     out.println("Hello world!");
@@ -209,6 +210,6 @@ public class Main implements Runnable {
   }
 
   public static void main(String[] args) {
-    new Main().run();
+    new Thread(null, new Main(), "Main Thread.", STACK_SIZE).start();
   }
 }
