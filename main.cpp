@@ -87,14 +87,20 @@ int NumberOfLeadingZeros(int i) {
   n -= j >> 31;
   return n;
 }
+
+struct StaticRunner {
+  StaticRunner() {
+    for (int i = 0; i < 256; i++) {
+      bits::bits_set_table[i] = (i & 1) + bits::bits_set_table[i / 2];
+    }
+  }
+} static_runner;
+
 }  // namespace bits
 
 struct StaticRunner {
   StaticRunner() {
     ios_base::sync_with_stdio(0);
-    for (int i = 0; i < 256; i++) {
-      bits::bits_set_table[i] = (i & 1) + bits::bits_set_table[i / 2];
-    }
   }
 } static_runner;
 
