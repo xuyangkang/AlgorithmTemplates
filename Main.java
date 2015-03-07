@@ -169,8 +169,8 @@ public class Main implements Runnable {
     }
   }
 
-  private static long currentTimeInMiiliSeconds() {
-    return System.currentTimeMillis();
+  private static long currentTimeInNanoSeconds() {
+    return System.nanoTime();
   }
 
   private static void debug(Object... objects) {
