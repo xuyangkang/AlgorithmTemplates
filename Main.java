@@ -21,7 +21,7 @@ public class Main implements Runnable {
   private static final int STACK_SIZE = 16 << 20;
 
   private void solve(QuickScanner in, PrintWriter out) {
-    out.println("Hello world!");
+    out.println("Hello World!");
   }
 
   private static class MathUtils {
@@ -35,6 +35,28 @@ public class Main implements Runnable {
     private static final BigInteger BIG_TWO = new BigInteger("2");
     private static final SecureRandom RANDOM = new SecureRandom();
     private static int PRIME_CHECK_TIMES = 30;
+
+    static long gcd(long a, long b) {
+      return b == 0 ? a : gcd(b, a % b);
+    }
+
+    static long[] extendedGcd(long a, long b) {
+      BigInteger bigA = BigInteger.valueOf(a);
+      BigInteger bigB = BigInteger.valueOf(b);
+      BigInteger[] res = extendedGcd(bigA, bigB);
+      return new long[] {res[0].longValue(), res[1].longValue(), res[2].longValue()};
+    }
+
+    static BigInteger[] extendedGcd(BigInteger p, BigInteger q) {
+      if (q.equals(BIG_ZERO))
+        return new BigInteger[] {p, BIG_ONE, BIG_ZERO};
+
+      BigInteger[] vals = extendedGcd(q, p.mod(q));
+      BigInteger d = vals[0];
+      BigInteger a = vals[2];
+      BigInteger b = vals[1].subtract(p.divide(q).multiply(a));
+      return new BigInteger[] {d, a, b};
+    }
 
     static boolean isProbablePrime(long x) {
       return BigInteger.valueOf(x).isProbablePrime(PRIME_CHECK_TIMES);
@@ -64,7 +86,7 @@ public class Main implements Runnable {
       if (N.compareTo(BIG_ONE) == 0) {
         return;
       }
-      if (N.isProbablePrime(30)) {
+      if (N.isProbablePrime(PRIME_CHECK_TIMES)) {
         result.add(N);
         return;
       }
