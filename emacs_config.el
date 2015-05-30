@@ -39,16 +39,19 @@
 ;; dump all the macros defined to a temp file
 ;; so we're able to grep the file to check if the lib is imported before.
 (defun dump-macros ()
+  (interactive)
+  (save-buffer)
   (shell-command (concat "g++ -E -dM -std=c++11 " buffer-file-name " | grep __SWEET > macros.txt" )))
 (defun check-lib-imported (name)
-  (shell-command (concat "grep -q " (upcase name) " ./Workspace/macros.txt")))
+  (interactive)
+  (shell-command (concat "grep -q " (upcase name) " ./macros.txt")))
 
 ;; require a template
 (defun import-template()
   (interactive)
   (dump-macros)
   (unless (eq (check-lib-imported "template") 0)
-          (insert-file-contents (concat algorithm-template-root "template.cpp"))))
+          (insert-file-contents (concat algorithm-template-root "template.h"))))
 
 ;; compile single cpp file
 (defun compile-buffer() 
