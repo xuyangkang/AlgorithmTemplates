@@ -9,16 +9,6 @@
  '(scroll-bar-mode (quote right))
  '(transient-mark-mode 1))
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-;; highlight selection area
-(transient-mark-mode t)
-
 ;; highlight current line
 (global-hl-line-mode 1)
 
@@ -41,28 +31,40 @@
   "Moves the point to the newly created window after splitting."
   (other-window 1))
 
-;; get output file name.
-(defun get-output-filename ()
-  (concat buffer-file-name ".out"))
+(defconst algorithm-template-root
+  (expand-file-name "~/WorkSpace/AlgorithmTemplates/")
+  "The position of algorithm templates")
 
-;; get compile command.
-(defun get-compile-command()
-  (concat "g++ -std=c++11 -g -o " (get-output-filename) " " buffer-file-name))
+;; in each template file we add a macro __SWEET__TEMPLATE_NAME__
+;; dump all the macros defined to a temp file
+;; so we're able to grep the file to check if the lib is imported before.
+(defun dump-macros ()
+  (shell-command (concat "g++ -E -dM -std=c++11 " buffer-file-name " | grep __SWEET > macros.txt" )))
+(defun check-lib-imported (name)
+  (shell-command (concat "grep -q " (upcase name) " ./Workspace/macros.txt")))
+
+;; require a template
+(defun import-template()
+  (interactive)
+  (dump-macros)
+  (unless (eq (check-lib-imported "template") 0)
+          (insert-file-contents (concat algorithm-template-root "template.cpp"))))
 
 ;; compile single cpp file
 (defun compile-buffer() 
   (interactive)
   (save-buffer)
-  (compile (get-compile-command)))
+  (compile (concat "g++ -std=c++11 -g -o " buffer-file-name ".out " buffer-file-name)))
 
 ;; debug single cpp file
 (defun debug-buffer() 
   (interactive)
   (compile-buffer)
-  (gud-gdb (concat "gdb --fullname " (get-output-filename))))
+  (gud-gdb (concat "gdb --fullname " buffer-file-name ".out")))
 
 (defun my-hook ()
   (define-key c++-mode-map [f5] 'compile-buffer)  
   (define-key c++-mode-map [f6] 'debug-buffer))
 
 (add-hook 'c++-mode-hook 'my-hook)
+
