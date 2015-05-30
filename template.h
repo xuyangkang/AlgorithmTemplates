@@ -1,3 +1,6 @@
+#ifndef __SWEET_TEMPLATE__
+#define __SWEET_TEMPLATE__
+
 #include <algorithm>
 #include <bitset>
 #include <cassert>
@@ -52,3 +55,5 @@ struct StaticRunner {
     ios_base::sync_with_stdio(0);
   }
 } static_runner;
+
+#endif
