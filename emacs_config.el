@@ -32,10 +32,10 @@
   (other-window 1))
 
 (defconst algorithm-template-root
-  (expand-file-name "~/WorkSpace/AlgorithmTemplates/")
+  (expand-file-name "~/AlgorithmTemplates/")
   "The position of algorithm templates")
 
-;; in each template file we add a macro __SWEET__TEMPLATE_NAME__
+;; in each header file we define a macro __SWEET__TEMPLATE_NAME__
 ;; dump all the macros defined to a temp file
 ;; so we're able to grep the file to check if the lib is imported before.
 (defun dump-macros ()
@@ -44,7 +44,8 @@
 (defun check-lib-imported (name)
   (shell-command (concat "grep -q " (upcase name) " ./macros.txt")))
 
-;; require a template
+;; copy-paste a template into cursor
+;; if the template is already here, do nothing
 (defun import-template()
   (interactive)
   (dump-macros)
@@ -55,7 +56,7 @@
 (defun compile-buffer() 
   (interactive)
   (save-buffer)
-  (compile (concat "g++ -std=c++11 -g -o " buffer-file-name ".out " buffer-file-name)))
+  (compile (concat "g++ -std=c++11 -g -o -Werror " buffer-file-name ".out " buffer-file-name)))
 
 ;; debug single cpp file
 (defun debug-buffer() 
@@ -63,6 +64,7 @@
   (compile-buffer)
   (gud-gdb (concat "gdb --fullname " buffer-file-name ".out")))
 
+;; F5 for compile and F6 for debug and run
 (defun my-hook ()
   (define-key c++-mode-map [f5] 'compile-buffer)  
   (define-key c++-mode-map [f6] 'debug-buffer))
