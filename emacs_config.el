@@ -56,7 +56,7 @@
 (defun compile-buffer() 
   (interactive)
   (save-buffer)
-  (compile (concat "g++ -std=c++11 -g -o -Werror " buffer-file-name ".out " buffer-file-name)))
+  (compile (concat "g++ -std=c++11 -g -Werror -o " buffer-file-name ".out " buffer-file-name)))
 
 ;; debug single cpp file
 (defun debug-buffer() 
