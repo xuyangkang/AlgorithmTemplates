@@ -9,6 +9,29 @@
  '(scroll-bar-mode (quote right))
  '(transient-mark-mode 1))
 
+(require 'package)
+(require 'cl)
+
+(package-initialize)
+
+;; Automaticly download and install packages
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+        ("marmalade" . "https://marmalade-repo.org/packages/")))
+
+(defvar my-packages '(better-defaults
+                      projectile
+                      clojure-mode
+                      cider))
+
+(defvar packages-to-install
+  (cl-remove-if (lambda (p) (package-installed-p p)) my-packages))
+
+(unless (eq packages-to-install nil)
+  (package-refresh-contents)
+  (dolist (p packages-to-install)
+    (package-install p)))
+
 ;; highlight current line
 (global-hl-line-mode 1)
 
@@ -70,4 +93,3 @@
   (define-key c++-mode-map [f6] 'debug-buffer))
 
 (add-hook 'c++-mode-hook 'my-hook)
-
