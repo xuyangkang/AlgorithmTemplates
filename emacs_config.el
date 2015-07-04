@@ -35,7 +35,7 @@
 ;; highlight current line
 (global-hl-line-mode 1)
 
-;; use space instead of tab
+`;; use space instead of tab
 (setq-default indent-tabs-mode nil) 
 
 ;; do not create backup files
@@ -48,8 +48,8 @@
 (defun back-window ()
   (interactive)
   (other-window -1))
-(global-set-key [M-left] 'previous-multiframe-window)
-(global-set-key [M-right] 'next-multiframe-window)
+(global-set-key (kbd "M-[") 'previous-multiframe-window)
+(global-set-key (kbd "M-]") 'next-multiframe-window)
 (defadvice split-window (after move-point-to-new-window activate)
   "Moves the point to the newly created window after splitting."
   (other-window 1))
