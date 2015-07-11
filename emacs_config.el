@@ -45,9 +45,6 @@
 (global-set-key (kbd "M-g") 'goto-line)
 
 ;; faster window switch
-(defun back-window ()
-  (interactive)
-  (other-window -1))
 (global-set-key (kbd "M-[") 'previous-multiframe-window)
 (global-set-key (kbd "M-]") 'next-multiframe-window)
 (defadvice split-window (after move-point-to-new-window activate)
