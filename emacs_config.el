@@ -72,11 +72,19 @@
 (defun import-worker (name)
   (dump-macros)
   (unless (eq (check-lib-imported name) 0)
-    (insert-file-contents (concat algorithm-template-root name ".h"))))
+    (end-of-buffer)
+    (insert-file-contents (concat algorithm-template-root name ".h"))
+    (flush-lines "#include \"\./base\.h\"")
+    (end-of-buffer)))
 
-(defun import-template()
+(defun import-base()
   (interactive)
-  (import-worker "template"))
+  (import-worker "base"))
+
+(defun import-bits()
+  (interactive)
+  (import-base)
+  (import-worker "bits"))
 
 ;; compile single cpp file
 (defun compile-buffer() 

@@ -1,3 +1,10 @@
+/* Copyright 2015 Xuyang Kang */
+
+#ifndef BITS_H_
+#define BITS_H_
+#define __SWEET_BITS_H_
+
+#include "./base.h"
 
 namespace bits {
 // TODO(xuyang): Grab more codes from:
@@ -12,7 +19,7 @@ inline int HighestOneBit(int i) {
   i |= (i >> 4);
   i |= (i >> 8);
   i |= (i >> 16);
-  return i - ((uint32) i >> 1);
+  return i - static_cast<uint32>(i >> 1);
 }
 
 int bits_set_table[256];
@@ -26,7 +33,7 @@ int NumberOfLeadingZeros(int i) {
   if (i == 0) {
     return 32;
   }
-  uint32 j = (uint32) i;
+  uint32 j = static_cast<uint32>(i);
   int n = 1;
   if ((j >> 16) == 0)
     n += 16, j <<= 16;
@@ -49,3 +56,5 @@ struct StaticRunner {
 } static_runner;
 
 }  // namespace bits
+
+#endif  // BITS_H_

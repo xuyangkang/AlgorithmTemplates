@@ -1,8 +1,8 @@
 /* Copyright 2015 Xuyang Kang */
 
-#ifndef TEMPLATE_H_
-#define TEMPLATE_H_
-#define __SWEET_TEMPLATE__
+#ifndef BASE_H_
+#define BASE_H_
+#define __SWEET_BASE_H_
 
 #include <algorithm>
 #include <bitset>
@@ -57,4 +57,4 @@ struct StaticRunner {
   }
 } static_runner;
 
-#endif  // TEMPLATE_H_
+#endif  // BASE_H_
