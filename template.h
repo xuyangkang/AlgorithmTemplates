@@ -1,4 +1,7 @@
-#ifndef __SWEET_TEMPLATE__
+/* Copyright 2015 Xuyang Kang */
+
+#ifndef TEMPLATE_H_
+#define TEMPLATE_H_
 #define __SWEET_TEMPLATE__
 
 #include <algorithm>
@@ -28,26 +31,24 @@
 #include <utility>
 #include <vector>
 
-using namespace std;
-
-using int8 = char;
-using int16= short;
-using int32 = int;
-using int64 = long long;
-using uint8 = unsigned char;
-using uint16 = unsigned short;
-using uint32 = unsigned int;
-using uint64 = unsigned long long;
-using byte = unsigned char;
+using int8 = int8_t;
+using int16 = int16_t;
+using int32 = int32_t;
+using int64 = int64_t;
+using uint8 = uint8_t;
+using uint16 = uint16_t;
+using uint32 = uint32_t;
+using uint64 = uint64_t;
+using byte = uint8_t;
 
 const double PI = acos(0.0) * 2.0;
 const double EPS = 1e-10;
-const int MOD = 1E9 + 7;
+const int MOD = 1000000007;
 
 #ifdef LOCAL_DEBUG
 #define debug(x) cerr << #x << " = " << x << endl
 #else
-#define debug(x) ;
+#define debug(x) {}
 #endif
 
 struct StaticRunner {
@@ -56,4 +57,4 @@ struct StaticRunner {
   }
 } static_runner;
 
-#endif
+#endif  // TEMPLATE_H_
