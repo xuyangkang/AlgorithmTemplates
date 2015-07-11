@@ -69,11 +69,14 @@
 
 ;; copy-paste a template into cursor
 ;; if the template is already here, do nothing
+(defun import-worker (name)
+  (dump-macros)
+  (unless (eq (check-lib-imported name) 0)
+    (insert-file-contents (concat algorithm-template-root name ".h"))))
+
 (defun import-template()
   (interactive)
-  (dump-macros)
-  (unless (eq (check-lib-imported "template") 0)
-    (insert-file-contents (concat algorithm-template-root "template.h"))))
+  (import-worker "template"))
 
 ;; compile single cpp file
 (defun compile-buffer() 
