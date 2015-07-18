@@ -71,7 +71,6 @@
   (unless (eq (check-lib-imported name) 0)
     (end-of-buffer)
     (insert-file-contents (concat algorithm-template-root name ".h"))
-    (flush-lines "#include \"\./")
     (end-of-buffer)))
 
 (defun import-base()
