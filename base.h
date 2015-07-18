@@ -41,6 +41,19 @@ using uint32 = uint32_t;
 using uint64 = uint64_t;
 using byte = uint8_t;
 
+const int8 kInt8Min = 0x80;
+const int8 kInt8Max = 0x7F;
+const uint8 kUint8Max = 0xFF;
+const int16 kInt16Min = 0x8000;
+const int16 kInt16Max = 0x7FFF;
+const uint16 kUint16Max = 0xFFFF;
+const int32 kInt32Min = 0x80000000;
+const int32 kInt32Max = 0x7FFFFFFF;
+const uint32 kUint32Max = 0xFFFFFFFF;
+const int64 kInt64Min = 0x8000000000000000;
+const int64 kInt64Max = 0x7FFFFFFFFFFFFFFF;
+const uint64 kUint64Max = 0xFFFFFFFFFFFFFFFF;
+
 using std::cin;
 using std::cout;
 using std::cerr;
@@ -57,10 +70,10 @@ using std::min;
 using std::max;
 using std::sort;
 
-const double PI = acos(0.0) * 2.0;
-const double EPS = 1e-10;
-const int MOD = 1000000007;
-const char WS[] = " \n";
+const double kPi = acos(0.0) * 2.0;
+const double kEps = 1e-10;
+const int kMod = 1000000007;
+const char kWSXS[] = " \n";
 
 #ifdef LOCAL_DEBUG
 #define debug(x) cerr << #x << " = " << x << endl
