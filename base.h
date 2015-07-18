@@ -46,6 +46,17 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
+using std::vector;
+using std::string;
+using std::set;
+using std::map;
+using std::unordered_set;
+using std::unordered_map;
+
+using std::min;
+using std::max;
+using std::sort;
+
 const double PI = acos(0.0) * 2.0;
 const double EPS = 1e-10;
 const int MOD = 1000000007;
