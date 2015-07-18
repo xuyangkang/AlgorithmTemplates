@@ -41,9 +41,15 @@ using uint32 = uint32_t;
 using uint64 = uint64_t;
 using byte = uint8_t;
 
+using std::cin;
+using std::cout;
+using std::cerr;
+using std::endl;
+
 const double PI = acos(0.0) * 2.0;
 const double EPS = 1e-10;
 const int MOD = 1000000007;
+const char WS[] = " \n";
 
 #ifdef LOCAL_DEBUG
 #define debug(x) cerr << #x << " = " << x << endl
@@ -53,7 +59,7 @@ const int MOD = 1000000007;
 
 struct StaticRunner {
   StaticRunner() {
-    ios_base::sync_with_stdio(0);
+    std::ios_base::sync_with_stdio(0);
   }
 } static_runner;
 
