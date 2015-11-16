@@ -41,9 +41,6 @@
 ;; do not create backup files
 (setq make-backup-files nil) 
 
-;; key binding for goto line
-(global-set-key (kbd "M-g") 'goto-line)
-
 ;; faster window switch
 (global-set-key (kbd "M-[") 'previous-multiframe-window)
 (global-set-key (kbd "M-]") 'next-multiframe-window)
