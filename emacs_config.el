@@ -1,45 +1,45 @@
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(delete-selection-mode nil)
- '(inhibit-startup-screen t)
- '(mark-even-if-inactive t)
- '(scroll-bar-mode (quote right))
- '(transient-mark-mode 1))
-
 (require 'package)
 (require 'cl)
 
+;; Automaticly download and install packages
 (package-initialize)
 
-;; Automaticly download and install packages
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("marmalade" . "https://marmalade-repo.org/packages/")))
 
-(defvar my-packages '(better-defaults
-                      projectile
-                      clojure-mode
-                      cider))
+(defconst my-packages '(better-defaults
+                        projectile
+                        flycheck
+                        go-mode
+                        clojure-mode
+                        cider))
 
-(defvar packages-to-install
-  (cl-remove-if (lambda (p) (package-installed-p p)) my-packages))
+(defun my-packages-installed-p ()
+  (loop for p in my-packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
 
-(unless (eq packages-to-install nil)
+(unless (my-packages-installed-p)
+  (message "%s" "Emacs Prelude is now refreshing its package database...")
   (package-refresh-contents)
-  (dolist (p packages-to-install)
-    (package-install p)))
+  (message "%s" " done.")
+  ;; install the missing packages
+  (dolist (p my-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
 
 ;; highlight current line
 (global-hl-line-mode 1)
 
 `;; use space instead of tab
-(setq-default indent-tabs-mode nil) 
+(setq-default indent-tabs-mode nil)
 
 ;; do not create backup files
-(setq make-backup-files nil) 
+(setq make-backup-files nil)
+
+;; hide start up screen
+(setq inhibit-startup-screen t)
 
 ;; faster window switch
 (global-set-key (kbd "M-[") 'previous-multiframe-window)
@@ -77,20 +77,22 @@
   (import-worker "bits"))
 
 ;; compile single cpp file
-(defun compile-buffer() 
+(defun compile-buffer()
   (interactive)
   (save-buffer)
   (compile (concat "g++ -std=c++11 -g -Werror -o " buffer-file-name ".out " buffer-file-name)))
 
 ;; debug single cpp file
-(defun debug-buffer() 
+(defun debug-buffer()
   (interactive)
   (compile-buffer)
   (gud-gdb (concat "gdb --fullname " buffer-file-name ".out")))
 
 ;; F5 for compile and F6 for debug and run
 (defun my-hook ()
-  (define-key c++-mode-map [f5] 'compile-buffer)  
+  (define-key c++-mode-map [f5] 'compile-buffer)
   (define-key c++-mode-map [f6] 'debug-buffer))
 
 (add-hook 'c++-mode-hook 'my-hook)
+(add-hook 'after-init-hook 'global-flycheck-mode)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
