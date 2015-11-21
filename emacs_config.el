@@ -29,10 +29,7 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
-;; highlight current line
-(global-hl-line-mode 1)
-
-`;; use space instead of tab
+;; use space instead of tab
 (setq-default indent-tabs-mode nil)
 
 ;; do not create backup files
@@ -63,9 +60,9 @@
 (defun import-worker (name)
   (dump-macros)
   (unless (eq (check-lib-imported name) 0)
-    (end-of-buffer)
+    (goto-char (point-max))
     (insert-file-contents (concat algorithm-template-root name ".h"))
-    (end-of-buffer)))
+    (goto-char (point-max))))
 
 (defun import-base()
   (interactive)
