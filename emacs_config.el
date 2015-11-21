@@ -96,3 +96,4 @@
 (add-hook 'c++-mode-hook 'my-hook)
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
