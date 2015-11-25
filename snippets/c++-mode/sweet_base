@@ -88,3 +88,4 @@ struct StaticRunner {
 } static_runner;
 
 #endif  // BASE_H_
+$0

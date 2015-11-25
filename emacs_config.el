@@ -1,19 +1,21 @@
+;; Automaticly download and install packages
+;; TODO: The priority of elpa is still magic...
 (require 'package)
 (require 'cl)
 
-;; Automaticly download and install packages
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("marmalade" . "https://marmalade-repo.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
 
-(setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("marmalade" . "https://marmalade-repo.org/packages/")))
-
 (defconst my-packages '(better-defaults
-                        projectile
                         flycheck
+                        irony
+                        company
+                        company-irony
+                        company-irony-c-headers
                         go-mode
-                        clojure-mode
-                        cider))
+                        yasnippet))
 
 (defun my-packages-installed-p ()
   (loop for p in my-packages
@@ -24,7 +26,6 @@
   (message "%s" "Emacs Prelude is now refreshing its package database...")
   (package-refresh-contents)
   (message "%s" " done.")
-  ;; install the missing packages
   (dolist (p my-packages)
     (when (not (package-installed-p p))
       (package-install p))))
@@ -38,59 +39,81 @@
 ;; hide start up screen
 (setq inhibit-startup-screen t)
 
+;; unset visible-bell
+(setq visible-bell nil)
+
 ;; faster window switch
 (global-set-key (kbd "M-[") 'previous-multiframe-window)
 (global-set-key (kbd "M-]") 'next-multiframe-window)
 
-(defconst algorithm-template-root
-  (expand-file-name "~/AlgorithmTemplates/")
-  "The position of algorithm templates")
+;; remove trailing whitespace when saving
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; F5 for compile, F6 for debug and run
+(defun compile-buffer()
+  (interactive)
+  (save-buffer)
+  (compile (concat "g++ -std=c++11 -g -Werror -o " buffer-file-name ".out " buffer-file-name)))
+
+(defun debug-buffer()
+  (interactive)
+  (compile-buffer)
+  (gud-gdb (concat "gdb --fullname " buffer-file-name ".out")))
+
+(define-minor-mode cc-sport-mode
+  "Sport mode for C++."
+  :lighter " cc-sport"
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map [f5] 'compile-buffer)
+            (define-key map [f6] 'debug-buffer)
+            map))
+(add-hook 'c++-mode-hook 'cc-sport-mode)
+
+;; YASnippet for code template
+;; TODO: set your path here
+(require 'yasnippet)
+(setq yas-snippet-dirs (append yas-snippet-dirs
+			       '("~/AlgorithmTemplates/snippets")))
+(yas-reload-all)
+(add-hook 'prog-mode-hook #'yas-minor-mode)
 
 ;; in each header file we define a macro __SWEET__TEMPLATE_NAME__
 ;; dump all the macros defined to a temp file
 ;; so we're able to grep the file to check if the lib is imported before.
 (defun dump-macros ()
   (save-buffer)
-  (shell-command (concat "g++ -E -dM -std=c++11 " buffer-file-name " | grep __SWEET > macros.txt" )))
-(defun check-lib-imported (name)
-  (shell-command (concat "grep -q " (upcase name) " ./macros.txt")))
+  (shell-command (concat "g++ -E -dM -std=c++11 " buffer-file-name " | grep __SWEET > /tmp/macros.txt" )))
 
-;; copy-paste a template into cursor
-;; if the template is already here, do nothing
+(defun check-lib-imported (name)
+  (shell-command (concat "grep -q " (upcase name) " /tmp/macros.txt")))
+
 (defun import-worker (name)
   (dump-macros)
   (unless (eq (check-lib-imported name) 0)
-    (goto-char (point-max))
-    (insert-file-contents (concat algorithm-template-root name ".h"))
-    (goto-char (point-max))))
+    (yas-expand-snippet (yas-lookup-snippet name))))
 
 (defun import-base()
   (interactive)
-  (import-worker "base"))
+  (import-worker "sweet_base"))
 
-(defun import-bits()
-  (interactive)
-  (import-base)
-  (import-worker "bits"))
+;; irony for C++ indexing
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map [remap completion-at-point]
+    'irony-completion-at-point-async)
+  (define-key irony-mode-map [remap complete-symbol]
+    'irony-completion-at-point-async))
+(add-hook 'irony-mode-hook 'my-irony-mode-hook)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-;; compile single cpp file
-(defun compile-buffer()
-  (interactive)
-  (save-buffer)
-  (compile (concat "g++ -std=c++11 -g -Werror -o " buffer-file-name ".out " buffer-file-name)))
+;; company
+(eval-after-load 'company
+  '(add-to-list
+    'company-backends '(company-irony-c-headers company-irony)))
+(add-hook 'after-init-hook 'global-company-mode)
 
-;; debug single cpp file
-(defun debug-buffer()
-  (interactive)
-  (compile-buffer)
-  (gud-gdb (concat "gdb --fullname " buffer-file-name ".out")))
-
-;; F5 for compile and F6 for debug and run
-(defun my-hook ()
-  (define-key c++-mode-map [f5] 'compile-buffer)
-  (define-key c++-mode-map [f6] 'debug-buffer))
-
-(add-hook 'c++-mode-hook 'my-hook)
+;; flycheck
 (add-hook 'after-init-hook 'global-flycheck-mode)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
