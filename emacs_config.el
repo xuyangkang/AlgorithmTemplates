@@ -52,12 +52,16 @@
 ;; F5 for compile, F6 for debug and run
 (defun compile-buffer()
   (interactive)
+  (delete-other-windows)
   (save-buffer)
   (compile (concat "g++ -std=c++11 -g -Werror -o " buffer-file-name ".out " buffer-file-name)))
 
 (defun debug-buffer()
   (interactive)
   (compile-buffer)
+  (delete-other-windows)
+  (split-window-vertically)
+  (next-multiframe-window)
   (gud-gdb (concat "gdb --fullname " buffer-file-name ".out")))
 
 (define-minor-mode cc-sport-mode
