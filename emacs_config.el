@@ -92,13 +92,14 @@
   (shell-command (concat "grep -q " (upcase name) " /tmp/macros.txt")))
 
 (defun import-worker (name)
-  (dump-macros)
   (unless (eq (check-lib-imported name) 0)
     (yas-expand-snippet (yas-lookup-snippet name))))
 
-(defun import-base()
-  (interactive)
-  (import-worker "sweet_base"))
+(defun import-template (name)
+  "Import a pre-defined template"
+  (interactive "sWhich template do you want to import? ")
+  (dump-macros)
+  (import-worker (concat "sweet_" name)))
 
 ;; irony for C++ indexing
 (add-hook 'c++-mode-hook 'irony-mode)
