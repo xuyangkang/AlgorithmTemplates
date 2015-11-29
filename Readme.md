@@ -1,15 +1,22 @@
 README
 ===
 
-This is xuyang's template for ACM/ICPC, TC, CF and other algorithm/Machine Learning games.
+This is my code template for ACM/ICPC, TC, CF and other sport programming games.
 
-This template is written in C++11 and emacs.
+It is written in C++11 and integrates with emacs.
 
 Tested with Ubuntu 15.04 and Emacs 24.
 
 C++ Google style guide is strongly recommended.
 
-# Basic Usage:
+Warm welcome for contributing and challenging!
+
+##Usage:
 For ACM/ICPC on-site game: Type emacs_minimum_config.el to ~/.emacs
 
-For normal case: put emacs_config.el
+For normal case: put emacs_config.el to ~/.emacs(or merge it into your config), then M-X irony-install-server
+(you may need clang library)
+
+After open a cpp file, a hook will triggers sport-cc-mode, F5 to compile, F6 to debug in GDB.
+
+M-X import to "inline" template into current file
