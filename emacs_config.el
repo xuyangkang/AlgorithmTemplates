@@ -74,7 +74,6 @@
 (add-hook 'c++-mode-hook 'cc-sport-mode)
 
 ;; YASnippet for code template
-;; TODO: set your path here
 (require 'yasnippet)
 (setq yas-snippet-dirs (append yas-snippet-dirs
 			       '("~/AlgorithmTemplates/snippets")))
@@ -91,15 +90,21 @@
 (defun check-lib-imported (name)
   (shell-command (concat "grep -q " (upcase name) " /tmp/macros.txt")))
 
-(defun import-worker (name)
-  (unless (eq (check-lib-imported name) 0)
-    (yas-expand-snippet (yas-lookup-snippet name))))
+(defconst template-dependency
+  '(("sweet_bits" "sweet_base")
+    ("sweet_base")))
+
+(defun import-worker (templates)
+  (when templates
+    (progn
+      (import-worker (cdr templates))
+      (yas-expand-snippet (yas-lookup-snippet (car templates))))))
 
 (defun import-template (name)
   "Import a pre-defined template"
   (interactive "sWhich template do you want to import? ")
   (dump-macros)
-  (import-worker (concat "sweet_" name)))
+  (import-worker (assoc (concat "sweet_" name) template-dependency)))
 
 ;; irony for C++ indexing
 (add-hook 'c++-mode-hook 'irony-mode)
