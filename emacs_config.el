@@ -98,12 +98,14 @@
   (when templates
     (progn
       (import-worker (cdr templates))
-      (yas-expand-snippet (yas-lookup-snippet (car templates))))))
+      (dump-macros)
+      (let ((name (car templates)))
+        (unless (eq (check-lib-imported name) 0)
+          (yas-expand-snippet (yas-lookup-snippet name)))))))
 
 (defun import-template (name)
   "Import a pre-defined template"
   (interactive "sWhich template do you want to import? ")
-  (dump-macros)
   (import-worker (assoc (concat "sweet_" name) template-dependency)))
 
 ;; irony for C++ indexing
