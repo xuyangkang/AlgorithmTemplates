@@ -17,7 +17,7 @@ For ACM/ICPC on-site: Type emacs_minimum_config.el and save as ~/.emacs
 For full:
 
 1. Put or emacs_config.el to ~/.emacs
-2. Change snippet dir "~/AlgorithmTemplates/snippets" to your location
+2. In .emacs, Change my snippet template dir "~/AlgorithmTemplates/snippets" to your
 3. M-x irony-install-server (you may need clang library to build irony)
 
 ## Usage
