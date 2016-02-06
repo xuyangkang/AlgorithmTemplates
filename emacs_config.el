@@ -94,14 +94,18 @@
   '(("sweet_bits" "sweet_base")
     ("sweet_base")))
 
+(defun import-single-template (name)
+  (dump-macros)
+  (unless (eq (check-lib-imported name) 0)
+    (yas-expand-snippet (yas-lookup-snippet name))))
+
 (defun import-worker (templates)
   (when templates
     (progn
       (import-worker (cdr templates))
-      (dump-macros)
       (let ((name (car templates)))
-        (unless (eq (check-lib-imported name) 0)
-          (yas-expand-snippet (yas-lookup-snippet name)))))))
+        (import-worker (cdr (assoc name template-dependency)))
+        (import-single-template name)))))
 
 (defun import-template (name)
   "Import a pre-defined template"
