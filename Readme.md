@@ -11,15 +11,16 @@ C++ Google style guide is strongly recommended.
 
 Warm welcome for contributing and challenging!
 
-##Usage:
-For ACM/ICPC on-site game: Type emacs_minimum_config.el to ~/.emacs
+## Install
+For ACM/ICPC on-site: Type emacs_minimum_config.el and save as ~/.emacs
 
-For normal case:
-
-1. Put emacs_config.el to ~/.emacs(or merge it into your config)
+For full:
+1. Put or emacs_config.el to ~/.emacs
 2. Change snippet dir "~/AlgorithmTemplates/snippets" to your location
-3. M-X irony-install-server (you may need clang library to build irony)
+3. M-x irony-install-server (you may need clang library to build irony)
 
-After open a cpp file, a hook will triggers sport-cc-mode, F5 to compile, F6 to debug in GDB.
-
-M-X import to "inline" template into current file
+## Usage
+1. F5 to compile, F6 to debug in GDB
+2. M-[ M-] to move in frames
+3. Type keyworks(for, while, if, etc) + tab to trigger template
+4. M-x import-template, then type template name to "inline" template into current file
