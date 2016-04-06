@@ -54,22 +54,6 @@ const int64 kInt64Min = 0x8000000000000000;
 const int64 kInt64Max = 0x7FFFFFFFFFFFFFFF;
 const uint64 kUint64Max = 0xFFFFFFFFFFFFFFFF;
 
-using std::cin;
-using std::cout;
-using std::cerr;
-using std::endl;
-
-using std::vector;
-using std::string;
-using std::set;
-using std::map;
-using std::unordered_set;
-using std::unordered_map;
-
-using std::min;
-using std::max;
-using std::sort;
-
 const double kPi = acos(0.0) * 2.0;
 const double kEps = 1e-10;
 const int kMod = 1000000007;
