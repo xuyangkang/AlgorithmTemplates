@@ -73,6 +73,9 @@
             map))
 (add-hook 'c++-mode-hook 'cc-sport-mode)
 
+;; Let Emacs handle *.h in C++ mode
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
 ;; YASnippet for code template
 (require 'yasnippet)
 (setq yas-snippet-dirs (append yas-snippet-dirs
@@ -82,7 +85,7 @@
 
 ;; in each header file we define a macro __SWEET__TEMPLATE_NAME__
 ;; dump all the macros defined to a temp file
-;; so we're able to grep the file to check if the lib is imported before.
+;; so we're able to grep the file to check if the lib is imported before
 (defun dump-macros ()
   (save-buffer)
   (shell-command (concat "g++ -E -dM -std=c++11 " buffer-file-name " | grep __SWEET > /tmp/macros.txt" )))

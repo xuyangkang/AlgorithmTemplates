@@ -1,0 +1,74 @@
+/* Copyright 2015 Xuyang Kang */
+
+#ifndef BASE_H_
+#define BASE_H_
+#define __SWEET_BASE_H_
+
+#include <algorithm>
+#include <bitset>
+#include <cassert>
+#include <cctype>
+#include <climits>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
+#include <deque>
+#include <iomanip>
+#include <iostream>
+#include <fstream>
+#include <functional>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
+using int8 = int8_t;
+using int16 = int16_t;
+using int32 = int32_t;
+using int64 = int64_t;
+using uint8 = uint8_t;
+using uint16 = uint16_t;
+using uint32 = uint32_t;
+using uint64 = uint64_t;
+using byte = uint8_t;
+
+const int8 kInt8Min = 0x80;
+const int8 kInt8Max = 0x7F;
+const uint8 kUint8Max = 0xFF;
+const int16 kInt16Min = 0x8000;
+const int16 kInt16Max = 0x7FFF;
+const uint16 kUint16Max = 0xFFFF;
+const int32 kInt32Min = 0x80000000;
+const int32 kInt32Max = 0x7FFFFFFF;
+const uint32 kUint32Max = 0xFFFFFFFF;
+const int64 kInt64Min = 0x8000000000000000;
+const int64 kInt64Max = 0x7FFFFFFFFFFFFFFF;
+const uint64 kUint64Max = 0xFFFFFFFFFFFFFFFF;
+
+const double kPi = acos(0.0) * 2.0;
+const double kEps = 1e-10;
+const int kMod = 1000000007;
+const char kWSXS[] = " \n";
+
+#ifdef LOCAL_DEBUG
+#define debug(x) cerr << #x << " = " << x << endl
+#else
+#define debug(x) {}
+#endif
+
+struct StaticRunner {
+  StaticRunner() {
+    std::ios_base::sync_with_stdio(0);
+  }
+} static_runner;
+
+#endif  // BASE_H_
