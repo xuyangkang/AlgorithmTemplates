@@ -1,3 +1,7 @@
+# -*- mode: snippet -*-
+# name: bits
+# key: __bits
+# --
 /* Copyright 2015 Xuyang Kang */
 
 #ifndef BITS_H_

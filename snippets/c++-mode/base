@@ -1,3 +1,7 @@
+# -*- mode: snippet -*-
+# name: base
+# key: __base
+# --
 /* Copyright 2015 Xuyang Kang */
 
 #ifndef BASE_H_
