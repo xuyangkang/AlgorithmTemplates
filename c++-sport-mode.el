@@ -26,7 +26,8 @@
             (define-key map [f5] 'compile-buffer)
             (define-key map [f6] 'debug-buffer)
             map))
-(add-hook 'c++-mode-hook 'cc-sport-mode)
+
+(add-hook 'c++-mode-hook 'c++-sport-mode)
 
 (provide 'c++-sport-mode)
 ;;; c++-sport-mode ends here
