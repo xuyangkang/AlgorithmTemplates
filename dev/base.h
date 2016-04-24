@@ -2,7 +2,6 @@
 
 #ifndef BASE_H_
 #define BASE_H_
-#define __SWEET_BASE_H_
 
 #include <algorithm>
 #include <bitset>

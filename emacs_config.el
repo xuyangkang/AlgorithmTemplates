@@ -50,7 +50,7 @@
 ;; remove trailing whitespace when saving
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; Let Emacs handle *.h in C++ mode
+;; Let c++-mode handle .h
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; C++ sport mode

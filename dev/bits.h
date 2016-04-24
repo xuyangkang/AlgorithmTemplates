@@ -2,7 +2,6 @@
 
 #ifndef BITS_H_
 #define BITS_H_
-#define __SWEET_BITS_H_
 
 namespace bits {
 // TODO(xuyang): Grab more codes from:
