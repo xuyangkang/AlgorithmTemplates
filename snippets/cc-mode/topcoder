@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: topcoder
+# key: __topcoder
+# --
+class ${1:TopCoder} {
+public:
+    ${2:int} ${3:Solve}(${4:int n}) {
+        $0
+    }
+};
